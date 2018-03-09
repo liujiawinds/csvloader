@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration scan="true" scanPeriod="60 seconds" debug="false">
+
+    <!-- 保存路径-->
+    <property name="logDir" value="/Users/admin/IdeaProjects/log"/>
+    <!--<property name="logDir" value="${user.dir}"/>-->
+    <!-- 保存日志天数-->
+    <property name="maxHistory" value="3"/>
+
+    <property name="errorMaxHistory" value="30"/>
+    <!-- 项目名-->
+    <property name="projectName" value="csvloader"/>
+
+    <appender name="CONSOLE" class="ch.qos.logback.core.ConsoleAppender">
+        <encoder>
+            <pattern>%d{HH:mm:ss.SSS} [%t] %-5p %c{36}[%file:%line]  - %m%n</pattern>
+        </encoder>
+    </appender>
+
+    <appender name="FILE" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <file>/${logDir}/${projectName}/${projectName}.log</file>
+        <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+            <fileNamePattern>/${logDir}/${projectName}/${projectName}-%d{yyyy-MM-dd}.zip</fileNamePattern>
+            <maxHistory>${maxHistory}</maxHistory>
+        </rollingPolicy>
+        <encoder>
+            <pattern>%d{yyyy-MM-dd HH:mm:ss.SSS} [%thread] %-5level [%logger:%L] - %msg%n</pattern>
+        </encoder>
+    </appender>
+
+    <logger class="com.mysql" level="ERROR"/>
+
+    <root level="INFO">
+        <appender-ref ref="CONSOLE"/>
+        <appender-ref ref="FILE"/>
+    </root>
+
+</configuration>
